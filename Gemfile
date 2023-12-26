@@ -1,5 +1,6 @@
 source "https://rubygems.org"
-#читает шлюха
+#читает шлюха 
+
 ruby "3.0.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
