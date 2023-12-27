@@ -1,4 +1,5 @@
+# Контроллер для управления домами.
 class HomesController < ApplicationController
-  def index
-  end
+  # Ваш код контроллера здесь
+  def index; end
 end
