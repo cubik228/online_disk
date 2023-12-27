@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'uploaded_files/index'
+  get 'uploaded_files/new'
+  get 'uploaded_files/create'
   get 'homes/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
