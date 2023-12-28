@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_231_227_210_931) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_210931) do
   create_table "upladed_files", force: :cascade do |t|
     t.string "name"
     t.string "attachment"
@@ -24,4 +24,5 @@ ActiveRecord::Schema[7.1].define(version: 20_231_227_210_931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 end
