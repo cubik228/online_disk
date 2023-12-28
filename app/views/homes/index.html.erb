@@ -1,14 +1,14 @@
 <h1 class="mt-4">Домашняя страница</h1>
 <% @files.each do |file| %>
   <div>
-    <h3>Name:</h3>  
+    <h3 class="mt-5">Name:</h3>  
     <%= file.name if file.name.present? %>
     <% if file.attachment.present? %>
       <% if image_file?(file.attachment.url) %>
         <h3>Preview:</h3>
         <%= image_tag file.attachment.url, height: '300', width: '300' %>
       <% else %>
-        <p>File:</p>
+        <h3>File:</h3>
         <%= link_to file.attachment.url, target: '_blank' do %>
           <%= file.attachment.identifier %>
         <% end %>
@@ -16,6 +16,7 @@
     <% end %>
   </div>
   <p class="mt-4">
-    <%= link_to "show", uploaded_file_path(file), class: "btn btn-primary", data: { confirm: "Are you sure?" } %>
+    <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
+    <%= button_to "Delete", uploaded_file_path(file), class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
 <% end %>

@@ -14,7 +14,7 @@ class UploadedFilesController < ApplicationController
 
     if @file.save
       flash[:success] = 'File created'
-      redirect_to uploaded_files_path
+      redirect_to root_path
     else
       render :new
     end
@@ -26,6 +26,7 @@ class UploadedFilesController < ApplicationController
   def destroy
     @file.destroy
     flash[:success] = 'File deleted'
+    redirect_to root_path
   end
   
   private
