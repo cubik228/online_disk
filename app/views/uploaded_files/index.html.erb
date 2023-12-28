@@ -1,2 +1,9 @@
-<h1>UploadedFiles#index</h1>
-<p>Find me in app/views/uploaded_files/index.html.erb</p>
+<% @files.each do |file| %>
+  <div>
+    <%= file.name if file.name.present? %>
+    <% if file.attachment.present? %>
+      <h2>Preview:</h2>
+      <%= image_tag file.attachment.url , height: '300', width: '300' %>
+    <% end %>
+  </div>
+<% end %>
