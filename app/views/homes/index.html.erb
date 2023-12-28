@@ -1,1 +1,10 @@
 <h1 class="mt-4">домашняя страница</h1>
+<% @files.each do |file| %>
+  <div>
+    <%= file.name if file.name.present? %>
+    <% if file.attachment.present? %>
+      <h2>Preview:</h2>
+      <%= image_tag file.attachment.url , height: '300', width: '300' %>
+    <% end %>
+  </div>
+<% end %>
