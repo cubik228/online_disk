@@ -1,0 +1,18 @@
+<%= @file.inspect %>
+<h1 class="mt-4">Домашняя страница</h1>
+
+<div>
+  <h3>Name:</h3>  
+  <%= @file.name if @file.name.present? %>
+  <% if @file.attachment.present? %>
+    <% if image_file?(@file.attachment.url) %>
+      <h3>Preview:</h3>
+      <%= image_tag @file.attachment.url, height: '300', width: '300' %>
+    <% else %>
+      <p>File:</p>
+      <%= link_to @file.attachment.url, target: '_blank' do %>
+        <%= @file.attachment.identifier %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

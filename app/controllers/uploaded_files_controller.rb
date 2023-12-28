@@ -1,4 +1,6 @@
 class UploadedFilesController < ApplicationController
+  before_action :set_question!, only: %i[destroy show]
+
   def index
     @files = UpladedFile.all
   end
@@ -17,10 +19,22 @@ class UploadedFilesController < ApplicationController
       render :new
     end
   end
+  def show
+    
+  end
 
+  def destroy
+    @file.destroy
+    flash[:success] = 'File deleted'
+  end
+  
   private
 
   def file_params
     params.require(:upladed_file).permit(:name, :attachment)
+  end
+
+  def set_question!
+    @file = UpladedFile.find(params[:id])
   end
 end
