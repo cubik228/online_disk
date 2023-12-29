@@ -1,4 +1,9 @@
 <h1 class="mt-4">Домашняя страница</h1>
+<%= form_tag(uploaded_files_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Поиск по имени" %>
+  <%= submit_tag "Искать", class: "btn btn-primary" %>
+<% end %>
+
 <% @files.each do |file| %>
   <div>
     <h3 class="mt-5">Name:</h3>  

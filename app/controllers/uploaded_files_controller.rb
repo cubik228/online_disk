@@ -3,7 +3,10 @@ class UploadedFilesController < ApplicationController
 
   def index
     @files = UpladedFile.all
+    @files = @files.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
   end
+  
+  
 
   def new
     @file = UpladedFile.new
