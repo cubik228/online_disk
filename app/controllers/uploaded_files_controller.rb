@@ -6,7 +6,9 @@ class UploadedFilesController < ApplicationController
     @files = @files.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
   end
   
-  
+  def history
+    @files_history = UpladedFile.all.order(created_at: :desc)
+  end
 
   def new
     @file = UpladedFile.new
