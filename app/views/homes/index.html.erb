@@ -20,6 +20,9 @@
       <% end %>
     <% end %>
   </div>
+
+  <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
+  
   <p class="mt-4">
     <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
     <%= button_to "Delete", uploaded_file_path(file), class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>

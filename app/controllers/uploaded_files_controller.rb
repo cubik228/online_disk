@@ -1,5 +1,5 @@
 class UploadedFilesController < ApplicationController
-  before_action :set_question!, only: %i[destroy show]
+  before_action :set_file!, only: %i[destroy show]
 
   def index
     @files = UpladedFile.all
@@ -38,7 +38,7 @@ class UploadedFilesController < ApplicationController
     params.require(:upladed_file).permit(:name, :attachment)
   end
 
-  def set_question!
+  def set_file!
     @file = UpladedFile.find(params[:id])
   end
 end
