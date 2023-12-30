@@ -1,0 +1,12 @@
+<h1>History</h1>
+<% @files_history.each do |file| %>
+  <div>
+    <h4>Name:</h4>  
+    <%= file.name if file.name.present? %>
+  </div >
+    <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
+    <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
+  </div>
+  </div>
+  <hr>
+<% end %>
