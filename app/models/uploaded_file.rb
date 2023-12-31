@@ -1,3 +1,3 @@
-class UpladedFile < ApplicationRecord
+class UploadedFile < ApplicationRecord
   mount_uploader :attachment, AttachmentUploader
 end

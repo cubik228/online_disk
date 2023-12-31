@@ -12,7 +12,7 @@ class UploadedFilesController < ApplicationController
   end
 
   def history
-    @files_history = UpladedFile.all.order(created_at: :desc)
+    @files_history = UploadedFile.all.order(created_at: :desc)
   end
   def settings
   end
@@ -26,11 +26,11 @@ class UploadedFilesController < ApplicationController
   end
 
   def new
-    @file = UpladedFile.new
+    @file = UploadedFile.new
   end
 
   def create
-    @file = UpladedFile.new(file_params)
+    @file = UploadedFile.new(file_params)
 
     if @file.save
       flash[:success] = 'File created'
@@ -57,11 +57,11 @@ class UploadedFilesController < ApplicationController
 
   
   def trash
-    @files_trash = UpladedFile.where(deleted: true)
+    @files_trash = UploadedFile.where(deleted: true)
   end
 
   def empty_trash
-    UpladedFile.where(deleted: true).destroy_all
+    UploadedFile.where(deleted: true).destroy_all
     flash[:success] = 'Trash emptied'
     redirect_to trash_uploaded_files_path
   end
@@ -76,18 +76,18 @@ class UploadedFilesController < ApplicationController
   end
 
   def set_trash!
-    @files_trash = UpladedFile.where(deleted: true)
+    @files_trash = UploadedFile.where(deleted: true)
   end
   
   def set_all_file!
-    @files = UpladedFile.where(deleted: false)
+    @files = UploadedFile.where(deleted: false)
   end
 
   def file_params
-    params.require(:upladed_file).permit(:name, :attachment)
+    params.require(:uploaded_file).permit(:name, :attachment)
   end
 
   def set_file!
-    @file = UpladedFile.find(params[:id])
+    @file = UploadedFile.find(params[:id])
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_31_120202) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_222640) do
   create_table "file_trashes", force: :cascade do |t|
     t.string "name"
     t.boolean "deleted"
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_120202) do
     t.datetime "updated_at", null: false
     t.boolean "trashed"
     t.integer "status"
+    t.boolean "deleted", default: false
   end
 
 end
