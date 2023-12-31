@@ -1,7 +1,7 @@
 <h1 class="mt-4">Домашняя страница</h1>
 <%= form_tag(uploaded_files_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Поиск по имени" %>
-  <%= submit_tag "Искать", class: "btn btn-primary" %>
+  <%= text_field_tag :search, params[:search], placeholder: 'Search by name' %>
+  <%= submit_tag 'Search' %>
 <% end %>
 
 <% @files.each do |file| %>
@@ -25,6 +25,6 @@
   
   <p class="mt-4">
     <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
-    <%= button_to "Delete", uploaded_file_path(file), class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= button_to "Move to trash", uploaded_file_path(file), class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
 <% end %>

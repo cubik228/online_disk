@@ -1,0 +1,11 @@
+<h1>Trash</h1>
+<ul>
+  <% @files_trash.each do |file| %>
+    <li>
+      <%= file.name %>
+      <%= link_to 'show', uploaded_file_path(file, restore: true), method: :patch %>
+    </li>
+  <% end %>
+</ul>
+<%= button_to 'Empty Trash', empty_trash_uploaded_files_path, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+
