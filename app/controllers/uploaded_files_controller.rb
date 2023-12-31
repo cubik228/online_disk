@@ -14,6 +14,8 @@ class UploadedFilesController < ApplicationController
   def history
     @files_history = UpladedFile.all.order(created_at: :desc)
   end
+  def settings
+  end
 
   def storage
     @all_size = 0 
