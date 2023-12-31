@@ -4,6 +4,10 @@ class UploadedFilesController < ApplicationController
   before_action :set_size_file!, only: %i[storage index]
 
   def index
+    set_all_file!  
+    set_trash!    
+  
+    @files = @files.where.not(id: @files_trash.pluck(:id))
     @files = @files.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
   end
 
@@ -28,7 +32,7 @@ class UploadedFilesController < ApplicationController
 
     if @file.save
       flash[:success] = 'File created'
-      redirect_to root_path
+      redirect_to uploaded_files_path
     else
       render :new
     end
@@ -37,12 +41,28 @@ class UploadedFilesController < ApplicationController
   def show
   end
 
+  
   def destroy
-    @file.destroy
-    flash[:success] = 'File deleted'
-    redirect_to root_path
+    if params[:restore] && @file.update(deleted: false)
+      flash[:success] = 'File restored'
+      redirect_to trash_uploaded_files_path
+    else
+      @file.update(deleted: true)
+      flash[:success] = 'File moved to trash'
+      redirect_to uploaded_files_path
+    end
   end
 
+  
+  def trash
+    @files_trash = UpladedFile.where(deleted: true)
+  end
+
+  def empty_trash
+    UpladedFile.where(deleted: true).destroy_all
+    flash[:success] = 'Trash emptied'
+    redirect_to trash_uploaded_files_path
+  end
   private
 
   def set_size_file!
@@ -53,8 +73,12 @@ class UploadedFilesController < ApplicationController
     end
   end
 
+  def set_trash!
+    @files_trash = UpladedFile.where(deleted: true)
+  end
+  
   def set_all_file!
-    @files = UpladedFile.all
+    @files = UpladedFile.where(deleted: false)
   end
 
   def file_params
