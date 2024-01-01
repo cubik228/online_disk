@@ -7,8 +7,14 @@ class UploadedFilesController < ApplicationController
     set_all_file!  
     set_trash!    
   
+    # Измените порядок условий, чтобы сначала фильтровать поисковый запрос,
+    # а затем исключать удаленные файлы
+    @files = @files.where("name LIKE ?", "%#{params[:search]}%")
     @files = @files.where.not(id: @files_trash.pluck(:id))
-    @files = @files.where("name LIKE ?", "%#{params[:search]}%") if params[:search].present?
+  end
+  
+  def search
+    @results = UploadedFile.where("name LIKE ?", "%#{params[:query]}%")
   end
 
   def history

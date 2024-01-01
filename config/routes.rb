@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/search', to: 'uploaded_files#search', as: 'search'
   root 'homes#index'
 end
