@@ -1,8 +1,12 @@
 <h1 class="mt-4">Домашняя страница</h1>
+
+<%= current_user.inspect%>
+
 <%= form_tag(search_path, method: "get") do %>
   <%= text_field_tag(:query, params[:query]) %>
   <%= submit_tag("Search") %>
 <% end %>
+
 <% @files.each do |file| %>
   <div>
     <h3 class="mt-5">Name:</h3>  

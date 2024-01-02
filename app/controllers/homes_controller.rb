@@ -2,6 +2,6 @@
 class HomesController < ApplicationController
   # Ваш код контроллера здесь
   def index
-    @files = UpladedFile.all
+    @files = UploadedFile.all
   end
 end
