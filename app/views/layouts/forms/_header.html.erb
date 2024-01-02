@@ -9,7 +9,7 @@
         <li class="nav-item"><%= link_to "History", history_uploaded_files_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "Storage", storage_uploaded_files_path, class: "nav-link ml-3" %></li>
         <li class="nav-item"><%= link_to "Trash", trash_uploaded_files_path, class: "nav-link ml-3" %></li>
-        <li class="nav-item"><%= link_to "Settings", settings_uploaded_files_path, class: "nav-link ml-3" %></li>
+        <li class="nav-item"><%= link_to "Settings", settings_path, class: "nav-link ml-3" %></li>
 
         <% if user_sign_in? %>
               <li class='mt-2' ><%= current_user.name %></li>
