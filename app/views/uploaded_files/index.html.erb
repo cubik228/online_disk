@@ -2,6 +2,14 @@
 
 <%= current_user.inspect%>
 
+<div>
+  <% if @all_size >= 1.kilobyte %>
+    <%= "total size of all files: #{(@all_size.to_f / 1.kilobyte).round(2)} МБ" %>
+  <% else %>
+    <%= "total size of all files: #{@all_size} КБ" %>
+  <% end %>
+</div>
+
 <%= form_tag(search_path, method: "get") do %>
   <%= text_field_tag(:query, params[:query]) %>
   <%= submit_tag("Search") %>

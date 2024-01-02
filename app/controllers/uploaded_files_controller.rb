@@ -1,16 +1,13 @@
 class UploadedFilesController < ApplicationController
-  before_action :set_file!, only: %i[destroy show]
-  before_action :set_all_file!, only: %i[storage index]
-  before_action :set_size_file!, only: %i[storage index]
-
-  def index
-    set_all_file!  
-    set_trash!    
+  before_action :set_file, only: %i[destroy show]
+  before_action :set_all_files, only: %i[storage index]
+  before_action :calculate_total_size, only: %i[storage index]
   
-    # Измените порядок условий, чтобы сначала фильтровать поисковый запрос,
-    # а затем исключать удаленные файлы
-    @files = @files.where("name LIKE ?", "%#{params[:search]}%")
-    @files = @files.where.not(id: @files_trash.pluck(:id))
+  def index
+    set_trash
+    calculate_total_size
+
+    @files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
   end
   
   def search
@@ -18,17 +15,14 @@ class UploadedFilesController < ApplicationController
   end
 
   def history
-    @files_history = UploadedFile.all.order(created_at: :desc)
+    @files_history = UploadedFile.order(created_at: :desc)
   end
+
   def settings
   end
 
   def storage
-    @all_size = 0 
-
-    @size_in_bytes.each do |size|
-      @all_size += size
-    end
+    calculate_total_size
   end
 
   def new
@@ -49,19 +43,10 @@ class UploadedFilesController < ApplicationController
   def show
   end
 
-  
   def destroy
-    if params[:restore] && @file.update(deleted: false)
-      flash[:success] = 'File restored'
-      redirect_to trash_uploaded_files_path
-    else
-      @file.update(deleted: true)
-      flash[:success] = 'File moved to trash'
-      redirect_to uploaded_files_path
-    end
+    handle_file_deletion
   end
 
-  
   def trash
     @files_trash = UploadedFile.where(deleted: true)
   end
@@ -71,29 +56,42 @@ class UploadedFilesController < ApplicationController
     flash[:success] = 'Trash emptied'
     redirect_to trash_uploaded_files_path
   end
+
   private
 
-  def set_size_file!
-    @size_in_bytes = []
-
-    @files.each do |file|
-      @size_in_bytes << file.attachment.file.size / 1000
-    end
+  def calculate_total_size
+    @all_size = @size_in_bytes.sum
   end
 
-  def set_trash!
+  def set_all_files
+    @files = UploadedFile.where(deleted: false)
+    set_size_in_bytes
+  end
+
+  def set_size_in_bytes
+    @size_in_bytes = @files.map { |file| file.attachment.file.size / 1000 }
+  end
+
+  def set_trash
     @files_trash = UploadedFile.where(deleted: true)
   end
   
-  def set_all_file!
-    @files = UploadedFile.where(deleted: false)
-  end
-
   def file_params
     params.require(:uploaded_file).permit(:name, :attachment)
   end
 
-  def set_file!
+  def set_file
     @file = UploadedFile.find(params[:id])
+  end
+
+  def handle_file_deletion
+    if params[:restore] && @file.update(deleted: false)
+      flash[:success] = 'File restored'
+      redirect_to trash_uploaded_files_path
+    else
+      @file.update(deleted: true)
+      flash[:success] = 'File moved to trash'
+      redirect_to uploaded_files_path
+    end
   end
 end
