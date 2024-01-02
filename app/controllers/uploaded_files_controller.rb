@@ -18,8 +18,7 @@ class UploadedFilesController < ApplicationController
     @files_history = UploadedFile.order(created_at: :desc)
   end
 
-  def settings
-  end
+  
 
   def storage
     calculate_total_size
