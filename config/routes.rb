@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       delete 'empty_trash', to: 'uploaded_files#empty_trash'
     end
   end
-
+  resources :users, only: %i[new create]
+  resource :session, only: %i[new create destroy]
   get '/search', to: 'uploaded_files#search', as: 'search'
+  
   root 'homes#index'
 end
