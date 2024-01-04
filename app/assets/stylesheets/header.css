@@ -1,0 +1,11 @@
+.navbar-collapse{
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.nav-item{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }

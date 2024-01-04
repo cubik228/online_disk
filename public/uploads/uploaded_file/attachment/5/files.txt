@@ -1,0 +1,661 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <limits>
+
+using namespace std;
+
+bool file_exists(string& filename){
+    ifstream file(filename);
+    return file.is_open();
+}
+
+void reverse_file(ifstream& infile, ofstream& outfile) {
+  int number;
+  if (infile >> number) {
+    reverse_file(infile, outfile);
+    outfile << number << " ";
+  }
+}
+
+template <typename T>
+void swap_files(const string& filename1, const string& filename2) {
+  ifstream infile1(filename1);
+  ifstream infile2(filename2);
+  ofstream outfile1(filename1);
+  ofstream outfile2(filename2);
+  T element;
+  while (infile1 >> element) {
+    outfile2 << element << " ";
+  }
+  while (infile2 >> element) {
+    outfile1 << element << " ";
+  }
+  infile1.close();
+  infile2.close();
+  outfile1.close();
+  outfile2.close();
+}
+
+template <typename T>
+void swap_files2(const string& filename1, const string& filename2,
+                const string& filename3) {
+  ifstream infile1(filename1);
+  ifstream infile2(filename2);
+  ifstream infile3(filename3);
+
+  int sizes[3];
+
+  sizes[0] = infile1.tellg() / sizeof(T);
+  sizes[1] = infile2.tellg() / sizeof(T);
+  sizes[2] = infile3.tellg() / sizeof(T);
+
+  int max_index = 0;
+  for (int i = 1; i < 3; i++) {
+    if (sizes[i] > sizes[max_index]) {
+      max_index = i;
+    }
+  }
+
+  ofstream outfile1(filename1);
+
+  infile3.seekg(0, ios::beg);
+  while (infile3 >> element) {
+    outfile1 << element << " ";
+  }
+
+  infile3.close();
+  outfile1.close();
+}
+
+int main(){
+    string filename = "input.txt";
+
+    //2
+
+    // int n;
+    // cout << "Input n even numbers: ";
+    // cin >> n;
+    //     if (n <= 0) {
+    //     cout << "Invalid input. Please enter a positive integer for n." << endl;
+    //     return 0;
+    // }
+    // ofstream file(filename);
+    // if(file.is_open()){
+    //     for (int i = 2, j = 0; j < n; i+=2, j++)
+    //     {
+    //         file << i << " ";
+    //     }
+    // }
+    // else
+    //     cout << "Failed to open file: " << filename;
+    
+    // file.close();
+
+    //4
+
+    // string filenames[4];
+    // cout << "Input files names: \n";
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     getline(cin, filenames[i]);
+    // }
+    
+    //6
+
+    // int k, temp, i = 1;
+    // ifstream file(filename);
+    // cout << "Input k: ";
+    // cin >> k;
+    //while (file >> temp) {
+    // if (i == k) {  
+    //   file.close();
+    //   cout << temp << endl;
+    //   return 0;
+    // }
+    // i++;
+    //}
+
+    //file.close();
+    //cout << "Элемент с номером K не существует." << endl;
+    //return 0;  
+
+    //8
+
+//     string filename1, filename2;
+//     cout << "Input name of 1 file: ";
+//     cin >> filename1;
+//     cout << "Input name of 2 file: ";
+//     cin >> filename2;
+//     ifstream file1(filename1);
+//     ofstream file2(filename2);
+//     if (!file2.is_open()) {
+//         cout << "Unable to create a file " << filename2 << "." << endl;
+//         return 1;
+//     }
+
+//     vector<int> numbers;
+//     int number;
+//     while (file1 >> number) {
+//     numbers.push_back(number);
+//   }
+
+//     double number;
+//     file1 >> number;
+//     file2 << number;
+//     while (file1 >> number) {
+//         file2 << " " << number;
+//     }
+//     file1.close();
+//     file2.close();
+
+//     cout << "Файл " << filename2 << " создан." << endl;
+
+    //10
+
+    // cout << "Введите имя исходного файла: ";
+    // cin >> filename;
+    // ifstream infile(filename);
+    // if (!infile.is_open()) {
+    //     cout << "Файл не существует." << endl;
+    //     return 1;
+    // }
+    // ofstream outfile("reversed.txt");
+    // if (!outfile.is_open()) {
+    //     cout << "Не удалось создать файл reversed.txt." << endl;
+    //     return 1;
+    // }
+    // reverse_file(infile, outfile);
+
+    // infile.close();
+    // outfile.close();
+
+    // return 0;
+
+    //12
+
+    // cout << "Введите имя исходного файла: ";
+    // cin >> filename;
+
+    // ifstream infile(filename);
+    // if (!infile.is_open()) {
+    //     cout << "Файл не существует." << endl;
+    //     return 1;
+    // }
+
+    // ofstream evenfile("even.txt");
+
+    // ofstream oddfile("odd.txt");
+
+    // int number;
+    // while (infile >> number) {
+    //     if (number % 2 == 0) {
+    //     evenfile << number << " ";
+    //     } else {
+    //     oddfile << number << " ";
+    //     }
+    // }
+
+    // infile.close();
+    // evenfile.close();
+    // oddfile.close();
+
+    // //14
+
+    // string filename;
+
+    // cout << "Введите имя файла: ";
+    // cin >> filename;
+
+    // ifstream infile(filename);
+    // if (!infile.is_open()) {
+    //     cout << "Файл не существует." << endl;
+    //     return 1;
+    // }
+
+    // double sum = 0;
+    // int count = 0;
+
+    // double number;
+    // while (infile >> number) {
+    //     sum += number;
+    //     count++;
+    // }
+
+    // infile.close();
+
+    // double average = sum / count;
+
+    // cout << "Среднее арифметическое: " << average << endl;
+
+    // //16
+
+    // cout << "Введите имя файла: ";
+    // cin >> filename;
+
+    // ifstream infile(filename);
+    // if (!infile.is_open()) {
+    //     cout << "Файл не существует." << endl;
+    //     return 1;
+    // }
+
+    // int count = 0;
+    // int previous = -1;
+    // int number;
+    // while (infile >> number) {
+    //     if (previous == number) {
+    //     count++;
+    //     } else {
+    //     count = 1;
+    //     }
+    //     previous = number;
+    // }
+
+    // infile.close();
+
+    // cout << "Количество серий: " << count << endl;
+
+    //18 
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    double current, min = numeric_limits<double>::max();
+    while (infile >> current) {
+        if (current < min) {
+        min = current;
+        }
+    }
+
+    infile.close();
+
+    if (min != numeric_limits<double>::max()) {
+        cout << "Первый локальный минимум: " << min << endl;
+    } else {
+        cout << "Файл не содержит локальных минимумов." << endl;
+    }
+
+    //20
+
+    // cout << "Введите имя файла: ";
+    // cin >> filename;
+
+    // ifstream infile(filename);
+    // if (!infile.is_open()) {
+    //     cout << "Файл не существует." << endl;
+    //     return 1;
+    // }
+
+    // int count = 0;
+    // double current, previous = -1;
+    // while (infile >> current) {
+    //     if (previous == -1) {
+    //     previous = current;
+    //     } else {
+    //     if (current < previous) {
+    //         count++;
+    //     } else if (current > previous) {
+    //         count++;
+    //     }
+    //     previous = current;
+    //     }
+    // }
+
+    // infile.close();
+
+    // cout << "Количество локальных экстремумов: " << count << endl;
+
+    //22
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile("extremes.txt");
+
+    int index = 0;
+    double current, previous = -1;
+    while (infile >> current) {
+        if (previous == -1) {
+        previous = current;
+        } else {
+        if (current < previous) {
+            outfile << index << " ";
+        } else if (current > previous) {
+            outfile << index << " ";
+        }
+        previous = current;
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //24
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile("sequences.txt");
+
+    double current, previous = -1;
+    int length = 1;
+    while (infile >> current) {
+        if (previous == -1) {
+        previous = current;
+        } else {
+        if (current > previous) {
+            length++;
+        } else if (current < previous) {
+            outfile << length << " ";
+            length = 1;
+        }
+        previous = current;
+        }
+    }
+
+    if (length > 1) {
+        outfile << length << " ";
+    }
+
+    infile.close();
+    outfile.close();
+
+    //26
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    ofstream outfile(filename);
+    if (!infile.is_open() || !outfile.is_open()) {
+        cout << "Не удалось открыть файл." << endl;
+        return 1;
+    }
+
+    double min = numeric_limits<double>::max();
+    double max = numeric_limits<double>::min();
+
+    double number;
+    while (infile >> number) {
+        if (number < min) {
+        min = number;
+        }
+        if (number > max) {
+        max = number;
+        }
+    }
+
+    infile.open(filename);
+    while (infile >> number) {
+        if (number == min) {
+        outfile << max << " ";
+        } else if (number == max) {
+        outfile << min << " ";
+        } else {
+        outfile << number << " ";
+        }
+    }
+
+    infile.close();
+    outfile.close();
+
+    //28
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    ofstream outfile(filename);
+
+    double current, previous, next;
+    infile >> current;
+    outfile << current << " ";
+    while (infile >> next) {
+        if (infile.peek() != EOF) {
+        previous = current;
+        current = next;
+        outfile << (current + previous) / 2 << " ";
+        } else {
+        outfile << current << " ";
+        }
+    }
+
+    infile.close();
+    outfile.close();
+
+    //30
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile("new_numbers.txt");
+
+    int index = 0;
+    int number;
+    while (infile >> number) {
+        if (index % 2 == 0) {
+        // Пропустить элемент
+        } else {
+        outfile << number << " ";
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //32
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile("new_numbers.txt");
+
+    int index = 0;
+    int number;
+    while (infile >> number) {
+        if (index % 2 == 1) {
+        outfile << number << " ";
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //34
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile("new_numbers.txt");
+
+    int index = 0;
+    int number;
+    while (infile >> number) {
+        if (number >= 0) {
+        outfile << number << " ";
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //36
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+        
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    infile.seekg(0, ios::end);
+    int size = infile.tellg() / sizeof(int);
+
+    int* numbers = new int[size * 2];
+    for (int i = 0; i < size; i++) {
+        infile >> numbers[i];
+    }
+
+    for (int i = size; i < size * 2; i++) {
+        numbers[i] = numbers[i - size];
+    }
+
+    ofstream outfile(filename);
+    for (int i = 0; i < size * 2; i++) {
+        outfile << numbers[i] << " ";
+    }
+
+    infile.close();
+    outfile.close();
+
+    delete[] numbers;
+  
+    //38
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    if (!infile.is_open()) {
+        cout << "Файл не существует." << endl;
+        return 1;
+    }
+
+    ofstream outfile(filename);
+
+    int index = 0;
+    int number;
+    while (infile >> number) {
+        if (index % 2 != 0) {
+        outfile << number << " " << number << " ";
+        } else {
+        outfile << number << " ";
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //40
+
+    cout << "Введите имя файла: ";
+    cin >> filename;
+
+    ifstream infile(filename);
+    ofstream outfile(filename);
+
+    int index = 0;
+    int number;
+    while (infile >> number) {
+        if (index % 2 == 0) {
+        outfile << "00" << " ";
+        } else {
+        outfile << number << " ";
+        }
+        index++;
+    }
+
+    infile.close();
+    outfile.close();
+
+    //42
+
+    string filename1;
+    cout << "Введите имя первого файла: ";
+    cin >> filename1;
+
+    string filename2;
+    cout << "Введите имя второго файла: ";
+    cin >> filename2;
+
+    swap_files<int>(filename1, filename2);
+
+    //44
+
+    cout << "Введите имя первого файла: ";
+    cin >> filename1;
+    string filename2;
+    cout << "Введите имя второго файла: ";
+    cin >> filename2;
+    string filename3;
+    cout << "Введите имя третьего файла: ";
+    cin >> filename3;
+    swap_files2<int>(filename1, filename2, filename3);
+
+    //46
+
+    string filename0;
+    cout << "Введите имя файла для объединения: ";
+    cin >> filename0;
+
+    int n;
+    cout << "Введите количество файлов: ";
+    cin >> n;
+
+    ifstream infiles[n];
+    for (int i = 0; i < n; i++) {
+        string filename;
+        cout << "Введите имя файла " << i + 1 << ": ";
+        cin >> filename;
+        infiles[i].open(filename);
+    }
+
+    ofstream outfile(filename0);
+
+    for (int i = 0; i < n; i++) {
+        string line;
+        while (getline(infiles[i], line)) {
+        outfile << line << endl;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        infiles[i].close();
+    }
+    outfile.close();
+}
+

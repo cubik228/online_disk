@@ -11,28 +11,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_01_01_170828) do
-  create_table "file_trashes", force: :cascade do |t|
-    t.string "name"
-    t.boolean "deleted"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "upladed_files", force: :cascade do |t|
-    t.string "name"
-    t.string "attachment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "deleted", default: false
-  end
-
   create_table "uploaded_files", force: :cascade do |t|
     t.string "name"
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "trashed"
-    t.integer "status"
     t.boolean "deleted", default: false
   end
 

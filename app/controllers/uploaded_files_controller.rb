@@ -2,14 +2,14 @@ class UploadedFilesController < ApplicationController
   before_action :set_file, only: %i[destroy show]
   before_action :set_all_files, only: %i[storage index]
   before_action :calculate_total_size, only: %i[storage index]
-  
+
   def index
     set_trash
     calculate_total_size
 
     @files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
   end
-  
+
   def search
     @results = UploadedFile.where("name LIKE ?", "%#{params[:query]}%")
   end
@@ -69,13 +69,13 @@ class UploadedFilesController < ApplicationController
   end
 
   def set_size_in_bytes
-    @size_in_bytes = @files.map { |file| file.attachment.file.size / 1000 }
+    @size_in_bytes = @files.map { |file| file.attachment.file.size  }
   end
 
   def set_trash
     @files_trash = UploadedFile.where(deleted: true)
   end
-  
+
   def file_params
     params.require(:uploaded_file).permit(:name, :attachment)
   end

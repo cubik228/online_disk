@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by email: params[:email]
     if user&.authenticate(params[:password])
       sign_in user
-      flash[:success] = "Welcome to back, #{current_user.name}!"
+      flash[:success] = "Welcome back, #{current_user.name}!"
       redirect_to uploaded_files_path
     else
       flash[:warning] = "Incorrect email and/or password!"
