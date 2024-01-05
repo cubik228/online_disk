@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
   get '/search', to: 'uploaded_files#search', as: 'search'
   
+  delete '/', to: 'sessions#destroy', as: 'logout'
+
   resources :settings, only: %i[index ] do 
     get 'help', on: :collection
   end

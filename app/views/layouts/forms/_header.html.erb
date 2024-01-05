@@ -10,12 +10,8 @@
         <li class="nav-item"><%= link_to "Storage", storage_uploaded_files_path, class: "nav-link ml-3" %></li>
         <li class="nav-item"><%= link_to "Trash", trash_uploaded_files_path, class: "nav-link ml-3" %></li>
         <li class="nav-item"><%= link_to "Settings", settings_path, class: "nav-link ml-3" %></li>
-         <% if user_sign_in? %>
-              <li class='nav-item mt-2' ><%= button_to "Log Out", session_path, class: "dropdown-item",data: {method: :delete} %></li>
-              <li class='nav-item mt-2' >name:<%= current_user.name %></li>
-        <% else %> 
-        <li class='mt-2' ><%= button_to "Log Out", session_path, class: "dropdown-item",data: {method: :delete} %></li>
-        <% end %>
+        <li class='nav-item mt-2' ><%= link_to "Log Out", logout_path, method: :delete, class: "dropdown-item" %></li>
+        <li class='nav-item mt-2' >name:<%= current_user.name %></li>
       </ul>
     </div>
   </nav>

@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     flash[:success] = "See you later"
-    redirect_to root_path
+    redirect_to root_url
   end
 end
