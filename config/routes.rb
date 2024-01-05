@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   resources :settings, only: %i[index ] do 
     get 'help', on: :collection
   end
-  root 'homes#index'
+  root 'users#start'
 end
