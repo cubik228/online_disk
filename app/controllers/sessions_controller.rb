@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     flash[:success] = "See you later"
-    redirect_to uploaded_files_path
+    redirect_to root_path
   end
 end

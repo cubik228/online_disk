@@ -4,20 +4,25 @@
     <title>OnlineDrive</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <linkrel="stylesheet" href="/files_view/files_view.css">
-    <linkrel="stylesheet" href="/header.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/files_view/files_view.css">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag '/naw/naw_styles' %>
-    
+
+    <!-- Загрузка header.css только на определенных страницах -->
+    <% if controller_name == 'uploaded_files' && action_name != 'search' && ![new_user_path, new_session_path].include?(request.path) %>
+      <%= stylesheet_link_tag '/header.css' %>
+    <% end %>
   </head>
 
   <body>
-    <%= render partial: 'layouts/forms/header'%>
-    <%= yield  %>
+    <!-- Отображение заголовка только на определенных страницах -->
+    <% unless controller_name == 'users' && action_name == 'start' || current_page?(new_session_path) ||current_page?(new_user_path) %>
+      <%= render partial: 'layouts/forms/header' %>
+    <% end %>
+    <%= yield %>
   </body>
 </html>
