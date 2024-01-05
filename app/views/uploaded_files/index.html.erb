@@ -8,6 +8,8 @@
   <%= text_field_tag(:query, params[:query]) %>
   <%= submit_tag("Search") %>
 <% end %>
+
+
 <ul class="top_f">
   <li class="info">Name</li>
   <li class="info">Date</li>
@@ -15,7 +17,35 @@
   <li class="info">User</li>
   <li class="info"></li>
 </ul>
-<% @files.each do |file| %>
+
+<h3>less than one hours</h3>
+<% @files_one_oclock.each do |file| %>
+  <div class = "files_prew">
+    <ul class="show_info">
+      <% if file.attachment.present? %>
+      <li class="info"><%= link_to file.attachment.url, target: '_blank' do %>
+          <%= file.attachment.identifier %>
+        <% end %>
+        </li> 
+        <li class="info"><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></li>
+        <li class="info"><%= number_to_human_size(file.attachment.file.size)%></li>
+        <li class="info">
+        <% if current_user != 0%>    
+            <%= current_user.name %>  
+        <%end%>      
+          </li>
+        <li class="info">
+          <span class="icon">
+              <%= button_to "", uploaded_file_path(file),class:"trash", class:"bg-transparent bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
+          </span>
+          </li>
+  </ul>
+      <% end %>
+  </div>
+<% end %>
+
+<h3>less than five hours</h3>
+<% @files_five_oclock.each do |file| %>
   <div class = "files_prew">
     <ul class="show_info">
       <% if file.attachment.present? %>
