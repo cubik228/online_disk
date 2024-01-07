@@ -1,9 +1,26 @@
-<div>
-  <% if @all_size >= 1.kilobyte %>
-    <%= "total size of all files: #{(@all_size.to_f / 1.kilobyte).round(2)} МБ" %>
-  <% else %>
-    <%= "total size of all files: #{@all_size} КБ" %>
-  <% end %>
+<style>
+  .progress-container {
+    width: 835px;
+    height: 30px;
+  }
+  
+  .progress-bar {
+    height: 12px;
+    background-color: #4caf50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    border-radius: 6px; /* Задайте радиус скругления по вашему вкусу */
+  }
+  </style>
+  
+  <div>
+    <%= "#{number_to_human_size(@all_size)} / 15 GB" %>
+</div>
+
+
+<div class="progress-container">
+  <div class="progress-bar" ><%= @progress_percentage.round(2) %>%</div>
 </div>
 
 <% @files.each_with_index do |file, index| %>
@@ -21,12 +38,8 @@
         <% end %>
     <% end %>
     <div>
-      <% size_in_bytes = @size_in_bytes[index] %>
-        <% if size_in_bytes >= 1.kilobyte %>
-          <%= "Size: #{(size_in_bytes.to_f / 1.kilobyte).round(2)} МБ" %>
-        <% else %>
-          <%= "Size: #{size_in_bytes} КБ" %>
-        <% end %>
+      <%= number_to_human_size(@all_size) %>
+        
       <% end %>
       <div><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></div>
     </div>
