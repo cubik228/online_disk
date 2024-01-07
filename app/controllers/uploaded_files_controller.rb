@@ -6,7 +6,7 @@ class UploadedFilesController < ApplicationController
   def index
     set_trash
     calculate_total_size
-    
+
     @files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
     @files_one_oclock = @files.where("created_at >= ? AND created_at < ?", 1.hour.ago, Time.now).where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
     @files_five_oclock = @files.where("created_at >= ? AND created_at < ?", 5.hours.ago, 4.hours.ago).where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
@@ -26,6 +26,7 @@ class UploadedFilesController < ApplicationController
 
   def storage
     calculate_total_size
+    @progress_percentage = (@all_size.to_f / 15.gigabytes) * 100
   end
 
   def new
