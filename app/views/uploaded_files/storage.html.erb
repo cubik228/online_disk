@@ -9,8 +9,6 @@
 
 <% @files.each_with_index do |file, index| %>
   <div class="mt-4">
-    <h3>Name:</h3>  
-    <%= file.name if file.name.present? %>
     <% if file.attachment.present? %>
       <% if image_file?(file.attachment.url) %>
         <h3>Preview:</h3>
