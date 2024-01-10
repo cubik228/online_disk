@@ -5,12 +5,12 @@
       <h3>Preview:</h3>
       <%= image_tag @file.attachment.url, height: '300', width: '300' %>
     <% else %>
-      <p>File:</p>
+    <p>File:</p>
       <%= link_to @file.attachment.url, target: '_blank' do %>
         <%= @file.attachment.identifier %>
       <% end %>
     <% end %>
   <% end %>
   <div><%= @file.created_at.strftime('%Y-%m-%d %H:%M:%S') if @file.created_at.present? %></div>
-  <div class="mt-3"> <%= link_to "back",uploaded_files_path ,class:"btn btn-primary" %></div>
+  <div class="mt-3"> <%= link_to "back",history_uploaded_files_path ,class:"btn btn-primary" %></div>
 </div>
