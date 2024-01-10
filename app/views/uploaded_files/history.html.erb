@@ -4,9 +4,13 @@
 
 <% @files_history.each do |file| %>
   <hr>
-  Name:<%= file.name if file.name.present? %>
+    <% if file.attachment.present? %>
+        <li class="info"><%= link_to file.attachment.url, target: '_blank' do %>
+          <%= file.attachment.identifier %>
+        <% end %>
+    <%end%>
+  <hr>
   <div>
-   
     <%= created_recently_label(file.created_recently?) %>
     <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
     <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>

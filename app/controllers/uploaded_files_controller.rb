@@ -10,7 +10,8 @@ class UploadedFilesController < ApplicationController
     set_trash
     calculate_total_size
 
-    @files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
+    @files = UploadedFile.all
+    #@files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
   end
 
   

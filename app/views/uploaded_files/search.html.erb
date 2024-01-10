@@ -2,8 +2,6 @@
 
 <% @results.each do |result| %>
   <div>
-    <h3 class="mt-5">Name:</h3>  
-    <%= result.name if result.name.present? %>
     <% if result.attachment.present? %>
       <% if image_file?(result.attachment.url) %>
         <h3>Preview:</h3>
