@@ -1,12 +1,15 @@
-<h1>History</h1>
+<div style="margin-left: 45%;">
+  <h5>History</h6>
+</div>
+
 <% @files_history.each do |file| %>
+  <hr>
+  Name:<%= file.name if file.name.present? %>
   <div>
-    <h4>Name:</h4>  
-    <%= file.name if file.name.present? %>
-  </div >
+   
+    <%= created_recently_label(file.created_recently?) %>
     <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
     <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
-  </div>
   </div>
   <hr>
 <% end %>

@@ -3,13 +3,14 @@ class UploadedFilesController < ApplicationController
   before_action :set_all_files, only: %i[storage index]
   before_action :calculate_total_size, only: %i[storage index]
 
+
+  helper ApplicationHelper
+
   def index
     set_trash
     calculate_total_size
 
     @files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
-    @files_one_oclock = @files.where("created_at >= ? AND created_at < ?", 1.hour.ago, Time.now).where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
-    @files_five_oclock = @files.where("created_at >= ? AND created_at < ?", 5.hours.ago, 4.hours.ago).where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
   end
 
   
@@ -19,7 +20,18 @@ class UploadedFilesController < ApplicationController
 
   def history
     @files_history = UploadedFile.order(created_at: :desc)
+
+    @files_history.each do |file|
+      file.define_singleton_method(:created_recently?) do
+        created_at >= 1.hour.ago
+      end
+    end
+
+    @files_history = @files_history.sort_by { |file| [file.created_recently? ? 0 : 1, file.created_at] }.reverse
   end
+
+ 
+  
 
   def settings
   end
