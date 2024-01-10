@@ -1,19 +1,14 @@
-<h1 class="mb-4">New file</h1>
+<h1 class="mt-4">New file</h1>
 <%= form_with model: @file, url: uploaded_files_path, local: true, multipart: true do |f|  %>
   <div class="margin-left: 20px" >
-    
-
-    <div class="mb-3 row">
-      <div class="col-sm-2 col-form-label">
-        <%= f.label :attachment %>
+    <div class="mb-3">
+      <div>
       </div>
-      <div class="col-sm-10">
+      <div class="col-sm-10" style="margin: left; width: 600px;">
         <%= f.file_field :attachment, required: true, class: "form-control" %>
       </div>
     </div>
 
-    <%= f.submit "add file", class: "btn btn-primary" %>
+    <%= f.submit "Add file", class: "btn btn-primary" %>
   </div>
 <% end %>
-
-

@@ -1,19 +1,39 @@
-<div style="margin-left: 45%;">
-  <h5>History</h5>
-</div>
+<div style="margin-left: 20px">
+  <h1 class = "mt-4">History</h1>
 
+<ul class="top_f">
+  <li class="info">Name</li>
+  <li class="info">Date</li>
+  <li class="info">Size</li>
+  <li class="info">User</li>
+  <li class="info"></li>
+</ul>
+<hr style="width: 80%; ">
 <% @files_history.each do |file| %>
-  <div>
-    <hr>
-    <% if file.attachment.present? %>
+  <div class="files_prew" style="height: 20px;">
+    <ul class="show_info" style="height: 100%;">
+        <li class="info">
+        <% if file.attachment.present? %>
         <%= link_to file.attachment.url, target: '_blank' do %>
           <%= truncate(file.attachment.identifier, length: 34) %>
         <% end %>
     <% end %>
-  
+    </li>
+    </ul>
+    <li class="info">
     <%= created_recently_label(file.created_recently?) %>
     <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
-    <%= link_to "Show", uploaded_file_path(file), class: "btn btn-secondary" %>
-    <hr>
-  </div>
+    </li>
+    <li class="info"><%= number_to_human_size(file.attachment.file.size) %></li>
+        <li class="info">
+          <% if current_user != 0 %>
+            <%= current_user.name %>
+          <% end %>
+        </li>
+        <li class="info">
+          <%= button_to "", uploaded_file_path(file) , class: "bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </li>
+    </div>
+    <hr style="width: 80%; ">
 <% end %>
+</div>

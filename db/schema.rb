@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_10_144844) do
     t.datetime "updated_at", null: false
     t.boolean "deleted", default: false
   end
-  
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
