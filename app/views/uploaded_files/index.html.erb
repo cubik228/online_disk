@@ -4,10 +4,13 @@
   <%= "#{number_to_human_size(@all_size)} / 15 GB" %>
 </div>
 
-<%= form_tag(search_path, method: "get") do %>
-  <%= text_field_tag(:query, params[:query]) %>
-  <%= submit_tag("Search") %>
+
+
+<% if params[:query].present? %>
+  <h2>Search results for '<%= params[:query] %>'</h2>
 <% end %>
+
+
 
 <ul class="top_f">
   <li class="info">Name</li>
@@ -46,3 +49,9 @@
 <div style="margin-left: 45%;">
   <%= paginate @files %>
 </div>
+
+
+
+
+
+
