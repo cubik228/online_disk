@@ -1,29 +1,44 @@
-
-
-<div>
-  <h5>total file size:</h6>
-  <%= @progress_percentage.round(2) %>
+<div style="margin-left: 20px">
+  <h3 class = "mt-4">Total files size: <%= @progress_percentage.round(2) %>
   %
-</div>
+  </h3>
 
-
+<ul class="top_f">
+  <li class="info">Name</li>
+  <li class="info">Date</li>
+  <li class="info">Size</li>
+  <li class="info">User</li>
+  <li class="info"></li>
+</ul>
+<hr style="width: 80%; ">
 <% @files.each_with_index do |file, index| %>
-  <div class="mt-4">
+
+  <div class="files_prew" style="height: 20px;">
+  <ul class="show_info" style="height: 100%;">
+  <li class="info">
     <% if file.attachment.present? %>
-      <% if image_file?(file.attachment.url) %>
-        <h3>Preview:</h3>
-        <%= image_tag file.attachment.url, height: '300', width: '300' %>
-      <% else %>
-        <p>File:</p>
         <%= link_to file.attachment.url, target: '_blank' do %>
           <%= file.attachment.identifier %>
         <% end %>
     <% end %>
-    <div>
+    </li>
+    <li class="info">
+    <%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %>
+  </li>
+    <li class="info">
       <%= number_to_human_size(@all_size) %>
-        
-      <% end %>
-      <div><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></div>
-    </div>
+    </li>
+
+      <li class="info">
+          <% if current_user != 0 %>
+            <%= current_user.name %>
+          <% end %>
+      </li>
+      <li class="info">
+          <%= button_to "", uploaded_file_path(file) , class: "bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+      </ul>
   </div>
+  <hr style="width: 80%; ">
 <% end %>
+</div>

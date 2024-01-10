@@ -11,11 +11,11 @@
   margin-left: 10px;
 }
 .files_prew {
+  justify-content: center;
   display: flex;
   align-items: stretch;
   width: 80%;
-  flex-direction: row;
-  border: 1px solid #685363;  
+  flex-direction: row; 
 }
 
 .show_info {

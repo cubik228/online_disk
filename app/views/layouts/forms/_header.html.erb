@@ -1,7 +1,22 @@
 <style>
   .nav-item {
-    margin-right: 20px; 
+    margin-right: 20px;
+    flex-direction: row;
   }
+
+.navbar-collapse{
+  margin: right;
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-nav{
+  gap: 50px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: row;
+}
 </style>
 
 <header>
@@ -29,7 +44,7 @@
               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
             </svg>
           </div>
-          <%= link_to "New File", new_uploaded_file_path, class: "nav-link ml-3" %>
+          <%= link_to "New", new_uploaded_file_path, class: "nav-link ml-3" %>
         </li>
 
         <li class="nav-item">
@@ -86,4 +101,3 @@
     </div>
   </nav>
 </header>
-

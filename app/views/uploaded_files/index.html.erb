@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <h1 class="mt-4">Home</h1>
 
 <div>
@@ -16,10 +19,10 @@
   <li class="info">User</li>
   <li class="info"></li>
 </ul>
-
+<hr style="width: 80%; ">
 <% @files.each do |file| %>
-  <div class="files_prew">
-    <ul class="show_info">
+  <div class="files_prew" style="height: 20px;">
+    <ul class="show_info" style="height: 100%;">
       <% if file.attachment.present? %>
         <li class="info">
           <%= link_to file.attachment.url, target: '_blank' do %>
@@ -34,11 +37,10 @@
           <% end %>
         </li>
         <li class="info">
-          <span class="icon">
-            <%= button_to "", uploaded_file_path(file), class: "trash bg-transparent bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
-          </span>
+          <%= button_to "", uploaded_file_path(file) , class: "bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
         </li>
       <% end %>
     </ul>
   </div>
+  <hr style="width: 80%; ">
 <% end %>
