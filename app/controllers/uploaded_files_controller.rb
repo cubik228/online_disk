@@ -9,10 +9,14 @@ class UploadedFilesController < ApplicationController
   def index
     set_trash
     calculate_total_size
-
-    @files = UploadedFile.all
-    #@files = @files.where("name LIKE ?", "%#{params[:search]}%").where.not(id: @files_trash.pluck(:id))
+  
+    @files = UploadedFile.where(deleted: false).page(params[:page]).per(20)
   end
+  
+  def pagination
+    @files = UploadedFile.where(deleted: false).page(params[:page]).per(20)
+  end
+  
 
   
   def search
