@@ -1,28 +1,11 @@
-<style>
-  .progress-container {
-    width: 835px;
-    height: 30px;
-  }
-  
-  .progress-bar {
-    height: 12px;
-    background-color: #4caf50;
-    text-align: center;
-    line-height: 30px;
-    color: white;
-    border-radius: 6px; /* Задайте радиус скругления по вашему вкусу */
-  }
-  </style>
-  
-  
-  <div>
-    <%= "#{number_to_human_size(@all_size)} / 15 GB" %>
-</div>
 
 
-<div class="progress-container">
-  <div class="progress-bar" ><%= @progress_percentage.round(2) %>%</div>
+<div>
+  <h5>total file size:</h6>
+  <%= @progress_percentage.round(2) %>
+  %
 </div>
+
 
 <% @files.each_with_index do |file, index| %>
   <div class="mt-4">
