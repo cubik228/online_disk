@@ -1,15 +1,13 @@
 <h1 class="mt-4">Home</h1>
 
 <div>
-    <%= "#{number_to_human_size(@all_size)} / 15 GB" %>
+  <%= "#{number_to_human_size(@all_size)} / 15 GB" %>
 </div>
 
 <%= form_tag(search_path, method: "get") do %>
   <%= text_field_tag(:query, params[:query]) %>
   <%= submit_tag("Search") %>
 <% end %>
-
-
 
 <ul class="top_f">
   <li class="info">Name</li>
@@ -20,26 +18,27 @@
 </ul>
 
 <% @files.each do |file| %>
-  <div class = "files_prew">
+  <div class="files_prew">
     <ul class="show_info">
       <% if file.attachment.present? %>
-      <li class="info"><%= link_to file.attachment.url, target: '_blank' do %>
-          <%= file.attachment.identifier %>
-        <% end %>
-        </li> 
-        <li class="info"><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></li>
-        <li class="info"><%= number_to_human_size(file.attachment.file.size)%></li>
         <li class="info">
-        <% if current_user != 0%>    
-            <%= current_user.name %>  
-        <%end%>      
-          </li>
+          <%= link_to file.attachment.url, target: '_blank' do %>
+            <%= truncate(file.attachment.identifier, length: 34) %>
+          <% end %>
+        </li>
+        <li class="info"><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></li>
+        <li class="info"><%= number_to_human_size(file.attachment.file.size) %></li>
+        <li class="info">
+          <% if current_user != 0 %>
+            <%= current_user.name %>
+          <% end %>
+        </li>
         <li class="info">
           <span class="icon">
-              <%= button_to "", uploaded_file_path(file),class:"trash", class:"bg-transparent bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= button_to "", uploaded_file_path(file), class: "trash bg-transparent bi bi-trash", method: :delete, data: { confirm: 'Are you sure?' } %>
           </span>
-          </li>
-  </ul>
+        </li>
       <% end %>
+    </ul>
   </div>
 <% end %>
