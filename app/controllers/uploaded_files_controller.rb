@@ -10,18 +10,24 @@ class UploadedFilesController < ApplicationController
     set_trash
     calculate_total_size
   
-    @files = UploadedFile.where(deleted: false).page(params[:page]).per(20)
+    if params[:query].present?
+      @files = UploadedFile.where(deleted: false).where("attachment LIKE ?", "%#{params[:query]}%").page(params[:page]).per(20)
+    else
+      @files = UploadedFile.where(deleted: false).page(params[:page]).per(20)
+    end
   end
+  
+  
   
   def pagination
     @files = UploadedFile.where(deleted: false).page(params[:page]).per(20)
   end
   
 
-  
   def search
-    @results = UploadedFile.where("name LIKE ?", "%#{params[:query]}%")
+
   end
+ 
 
   def history
     @files_history = UploadedFile.order(created_at: :desc)
