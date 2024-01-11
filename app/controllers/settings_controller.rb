@@ -6,4 +6,8 @@ class SettingsController < ApplicationController
   def help
     
   end
+
+  def profile
+
+  end
 end
