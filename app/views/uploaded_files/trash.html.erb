@@ -1,11 +1,32 @@
 <h1>Trash</h1>
-<ul>
-  <% @files_trash.each do |file| %>
-    <li>
-      <%= link_to 'show', uploaded_file_path(file, restore: true), method: :patch %>
-    </li>
-  <% end %>
+
+<ul class="top_f">
+  <li class="info">Name</li>
+  <li class="info">Date</li>
+  <li class="info">Size</li>
+  <li class="info">User</li>
 </ul>
-<%= button_to "Empty Trash", empty_trash_uploaded_files_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 
-
+<hr style="width: 80%; ">
+<% @files_trash.each do |file| %>
+  <div class="files_prew" style="height: 20px;">
+    <ul class="show_info" style="height: 100%;">
+      <% if file.attachment.present? %>
+        <li class="info">
+          <%= link_to file.attachment.url, target: '_blank' do %>
+            <%= truncate(file.attachment.identifier, length: 34) %>
+          <% end %>
+        </li>
+        <li class="info"><%= file.created_at.strftime('%Y-%m-%d %H:%M:%S') if file.created_at.present? %></li>
+        <li class="info"><%= number_to_human_size(file.attachment.file.size) %></li>
+        <li class="info">
+          <% if current_user != 0 %>
+            <%= current_user.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <hr style="width: 80%; ">
+<% end %>
+<%= button_to "Очистить корзину", empty_trash_uploaded_files_path, method: :delete, class: "btn btn-danger" %>
