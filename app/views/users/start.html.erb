@@ -1,2 +1,30 @@
-<li><%= link_to "Sign Up", new_user_path, class: "dropdown-item" %></li>
-<li><%= link_to "Log In", new_session_path, class: "dropdown-item" %></li>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <%= form_with url: session_path do |u| %>
+    <div class="mb-3 row">
+      <div class="col-sm-2 col-form-label">
+        <%= u.label :email %>
+      </div>
+
+      <div class="col-sm-10">
+        <%= u.email_field :email, placeholder: "Email", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <div class="col-sm-2 col-form-label">
+        <%= u.label :password %>
+      </div>
+
+      <div class="col-sm-10">
+        <%= u.password_field :password, placeholder: "Password", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <div class="col-sm-10 offset-sm-2">
+        <%= u.submit "Log In", class: "btn btn-primary" %>
+        <%= link_to "Sign Up", new_user_path, class: "btn btn-primary", style: "width: 100px;" %>
+      </div>
+    </div>
+  <% end %>
+</div>
